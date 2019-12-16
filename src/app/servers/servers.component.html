@@ -1,0 +1,44 @@
+<label>Server name</label>
+<!-- <input 
+    type="text" 
+    class="form-control"
+    (input)="onUpdateServerEvent($event)"> -->
+    <input 
+    type="text" 
+    class="form-control"
+    [(ngModel)]='serverName'>
+<button class="btn btn-primary" 
+    [disabled]="!allowNewServers"
+    (click)="onCreateServer()"
+    >Add server
+</button>
+<!-- <p [innerText]='serverCreationStatus'></p> -->
+<p *ngIf="serverCreated; else noServer">{{ serverCreationStatus }}</p>
+<ng-template #noServer>
+    <p>No server was created!</p>
+</ng-template>
+
+<input 
+    type="text" 
+    class="form-control"
+    [(ngModel)]='username'>
+
+<p>{{ username }}</p>
+
+<button class="btn btn-secondary"
+    [disabled]='!allowResetUsername()'
+    (click)="onResetUsername()">Reset username</button>
+
+<app-server *ngFor="let server of servers"></app-server>
+
+<hr>
+
+<button 
+    class="btn btn-primary"
+    (click)="toggleParagraph()">Display details</button>
+<p *ngIf="showParagraph">We got technology, we got the magic!</p>
+<ul>
+    <li *ngFor="let date of showParagraphLog; let i = index"
+        [ngStyle]="{backgroundColor: getBackgroundColor(i)}"
+        [ngClass]="{white: i >= 4}">{{ date }}</li>
+</ul>
